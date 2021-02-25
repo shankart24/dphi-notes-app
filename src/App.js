@@ -18,11 +18,9 @@ const App = () => {
 
 	// the content the user has written
 	const [userInput, setUserInput] = useState("");
-	const inputEle = useRef("");
 
 	// date selected by user
 	const [userDate, setUserDate] = useState();
-	const dateEle = useRef(null);
 
 	// state to store all the created notes
 	const [allNotes, setAllNotes] = useState([]);
@@ -54,9 +52,14 @@ const App = () => {
 	// state for storing filter results
 	const [filterResults, setFilterResults] = useState([]);
 
+	// Useful for DOM manipulation
 	const dayEle = useRef("");
 	const monthEle = useRef("");
 	const yearEle = useRef("");
+	const inputEle = useRef("");
+	const dateEle = useRef(null);
+
+	// --------- FILTERING --------
 
 	// function to check if any of the notes match the filter condition
 	const filterFunc = (arr1, arr2) => {
@@ -102,6 +105,8 @@ const App = () => {
 		setFilterCondition([{ ...filterCondition, [name]: value }]);
 	};
 
+	// --------- STANDARD ADD & DELETE --------
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		if (userInput.length !== 0 && userDate.length !== 0) {
@@ -116,6 +121,8 @@ const App = () => {
 	const handleDelete = (id) => {
 		setAllNotes(allNotes.filter((item) => item.id !== id));
 	};
+
+	// --------- EDITING or UPDATING --------
 
 	const handleEditCancel = () => {
 		inputEle.current.value = "";
@@ -147,6 +154,8 @@ const App = () => {
 		setEditing(false);
 	};
 
+	// --------- SORTING --------
+
 	const handleSorting = (e, myArray) => {
 		setSorting(true);
 		setSortType(e.target.value);
@@ -164,6 +173,8 @@ const App = () => {
 
 		setSorting(false);
 	};
+
+	// --------- SEARCHING --------
 
 	const handleSearchSubmit = (e) => {
 		e.preventDefault();
